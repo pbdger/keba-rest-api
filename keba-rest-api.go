@@ -1,8 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	modbusclient "github.com/dpapathanasiou/go-modbus"
-	"github.com/gin-gonic/gin"
+	"github.com/gorilla/mux"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"net"
@@ -48,18 +49,6 @@ type state struct {
 	Timestamp              string  `json:"Timestamp"`
 }
 
-// getAlbums responds with the list of all currentState as JSON.
-func getState(c *gin.Context) {
-	log.Debug().Msg("getState")
-
-	for !registerFilled {
-		time.Sleep(3 * time.Second)
-	}
-
-	currentState.Timestamp = time.Now().Format(time.RFC3339)
-	c.IndentedJSON(http.StatusOK, currentState)
-}
-
 var (
 	registerFilled bool
 	registers      []register
@@ -73,6 +62,36 @@ var (
 		},
 	}
 )
+
+func loggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Do stuff here
+		log.Debug().Msg(r.RequestURI)
+		// Call the next handler, which can be another middleware in the chain, or the final handler.
+		next.ServeHTTP(w, r)
+	})
+}
+
+func getState(w http.ResponseWriter, r *http.Request) {
+
+	log.Debug().Msg("getState")
+
+	for !registerFilled {
+		time.Sleep(3 * time.Second)
+	}
+
+	currentState.Timestamp = time.Now().Format(time.RFC3339)
+
+	w.WriteHeader(http.StatusCreated)
+
+	enc := json.NewEncoder(w)
+	enc.SetIndent("", "    ")
+	if err := enc.Encode(currentState); err != nil {
+		panic(err)
+	}
+
+	w.WriteHeader(http.StatusOK)
+}
 
 func initRegisters() {
 
@@ -155,12 +174,10 @@ func main() {
 		}
 	}()
 
-	router := gin.Default()
-	router.GET("/state", getState)
-	err := router.Run(":" + env.apiPort)
-	if err != nil {
-		log.Fatal().Err(err)
-	}
+	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc("/state", getState)
+	router.Use(loggingMiddleware)
+	http.Handle("/", router)
 
 	log.Info().Msg("Get current state on http://<your hostname>:" + env.apiPort + "/state")
 	log.Fatal().Err(http.ListenAndServe(":"+env.apiPort, nil))
