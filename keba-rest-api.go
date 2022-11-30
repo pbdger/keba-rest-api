@@ -16,7 +16,6 @@ type environment struct {
 	wallboxName string
 	wallboxPort int
 	apiPort     string
-	hostName    string
 	debug       bool
 }
 
@@ -158,12 +157,12 @@ func main() {
 
 	router := gin.Default()
 	router.GET("/state", getState)
-	err := router.Run(env.hostName + ":" + env.apiPort)
+	err := router.Run(":" + env.apiPort)
 	if err != nil {
 		log.Fatal().Err(err)
 	}
 
-	log.Info().Msg("Get current state on http://" + env.hostName + ":" + env.apiPort + "/state")
+	log.Info().Msg("Get current state on http://<your hostname>:" + env.apiPort + "/state")
 	log.Fatal().Err(http.ListenAndServe(":"+env.apiPort, nil))
 
 }
@@ -186,7 +185,6 @@ func initApp() {
 func initEnvironmentVariables() {
 
 	log.Info().Msg("Usage:")
-	log.Info().Str("hostName", "Process listening on this hostName.").Msg("Mandatory environment parameter.")
 	log.Info().Str("apiPort", "Process listening on this port.").Msg("Mandatory environment parameter.")
 	log.Info().Str("wallboxName", "This is an IP or a servername.").Msg("Mandatory environment parameter.")
 	log.Info().Str("wallboxPort", strconv.Itoa(modbusclient.MODBUS_PORT)).Msg("Optional: The port TCP/modbus listens.")
@@ -196,11 +194,6 @@ func initEnvironmentVariables() {
 	env.wallboxName = getEnv("wallboxName", "")
 	if len(env.wallboxName) == 0 {
 		log.Fatal().Msg("The environment variable wallboxName is unset. Please fix this.")
-	}
-
-	env.hostName = getEnv("hostName", "")
-	if len(env.hostName) == 0 {
-		log.Fatal().Msg("The environment variable hostName is unset. Please fix this.")
 	}
 
 	env.apiPort = getEnv("apiPort", "")

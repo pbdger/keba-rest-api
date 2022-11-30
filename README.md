@@ -8,7 +8,6 @@ Start your container binding the external port 8080.
 docker run -d --name=kebarestapi -p 8080:8080 \
             -e wallboxName=<your wallbox ip> \
             -e apiPort=<the port this process listens, e.g. 8080> \
-            -e hostName=<your ip, e.g. localhost> \
             pbdger/keba-rest-api
 ```
 Try it out.
