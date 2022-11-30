@@ -4,8 +4,13 @@ Provides Rest-API for a Keba Wallbox as container image.
 ### How to start ?
 Start your container binding the external port 8080.
 
-> docker run -d --name=kebarestapi -p 8080:8080 --env wallboxName=<your wallbox ip> pbdger/keba-rest-api
-
+```
+docker run -d --name=kebarestapi -p 8080:8080 \
+            -e wallboxName=<your wallbox ip> \
+            -e apiPort=<the port this process listens, e.g. 8080> \
+            -e hostName=<your ip, e.g. localhost> \
+            pbdger/keba-rest-api
+```
 Try it out.
 
 ### How to get state via rest api ?
