@@ -58,6 +58,15 @@ This request returns an output like this
 
 > wallboxPort: number, default is 502 
 
+
+## Grafana Integration
+You find a default Grafana board here: https://grafana.com/grafana/dashboards/14121
+
+This dashboard requires an InfluxDB. To fill a bucket in the InfluxDB you are free to 
+use Telegraf in combination with telegraf.conf example shown here in the subfolder telegraf. 
+
+
+
 ## Core binary usage
 ###Prerequisites
 #### Mandatory
