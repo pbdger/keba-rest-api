@@ -60,11 +60,16 @@ This request returns an output like this
 
 
 ## Grafana Integration
-You find a default Grafana board here: https://grafana.com/grafana/dashboards/14121
+You find a default Grafana board in the subfolder grafana.
+
+![alt text](./grafana/dashboard1.jpg)
+![alt text](./grafana/dashboard2.jpg)
 
 This dashboard requires an InfluxDB. To fill a bucket in the InfluxDB you are free to 
 use Telegraf in combination with telegraf.conf example shown here in the subfolder telegraf. 
 
+## Docker image
+You find an image here: https://hub.docker.com/repository/docker/pbdger/keba-rest-api
 
 
 ## Core binary usage
