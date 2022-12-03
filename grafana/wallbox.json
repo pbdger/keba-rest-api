@@ -1,53 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_INFLUXDB-INFLUXQL-HAUS",
-      "label": "InfluxDB-InfluxQL-Haus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "influxdb",
-      "pluginName": "InfluxDB"
-    }
-  ],
-  "__elements": {},
-  "__requires": [
-    {
-      "type": "panel",
-      "id": "barchart",
-      "name": "Bar chart",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "bargauge",
-      "name": "Bar gauge",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "gauge",
-      "name": "Gauge",
-      "version": ""
-    },
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "9.2.3"
-    },
-    {
-      "type": "datasource",
-      "id": "influxdb",
-      "name": "InfluxDB",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "timeseries",
-      "name": "Time series",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": [
       {
@@ -73,7 +24,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
-  "id": null,
+  "id": 14,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -93,7 +44,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -175,7 +126,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -220,7 +171,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -298,7 +249,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -343,7 +294,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "description": "",
       "fieldConfig": {
@@ -389,7 +340,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -434,7 +385,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "description": "",
       "fieldConfig": {
@@ -483,7 +434,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -528,7 +479,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "description": "",
       "fieldConfig": {
@@ -577,7 +528,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -682,7 +633,7 @@
           "alias": "1",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -724,7 +675,7 @@
           "alias": "2",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -766,7 +717,7 @@
           "alias": "3",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -812,7 +763,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "description": "",
       "fieldConfig": {
@@ -868,7 +819,7 @@
           "alias": "1",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -909,7 +860,7 @@
           "alias": "2",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -951,7 +902,7 @@
           "alias": "3",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -1009,7 +960,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -1079,7 +1030,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -1125,7 +1076,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -1167,7 +1118,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               },
               {
                 "color": "red",
@@ -1203,7 +1155,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -1248,7 +1200,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -1290,7 +1242,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               },
               {
                 "color": "red",
@@ -1326,7 +1279,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -1351,7 +1304,7 @@
             [
               {
                 "params": [
-                  "cable_state"
+                  "charging_state"
                 ],
                 "type": "field"
               },
@@ -1364,14 +1317,14 @@
           "tags": []
         }
       ],
-      "title": "Cable state",
+      "title": "Charging state",
       "transparent": true,
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -1413,7 +1366,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               }
             ]
           },
@@ -1445,7 +1399,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -1490,7 +1444,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -1532,7 +1486,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               }
             ]
           },
@@ -1564,7 +1519,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -1609,7 +1564,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -1651,7 +1606,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1729,7 +1685,7 @@
           "alias": "1",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -1770,7 +1726,7 @@
           "alias": "2",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -1812,7 +1768,7 @@
           "alias": "3",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -1858,7 +1814,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -1900,7 +1856,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1978,7 +1935,7 @@
           "alias": "1",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -2019,7 +1976,7 @@
           "alias": "2",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -2061,7 +2018,7 @@
           "alias": "3",
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -2107,7 +2064,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+        "uid": "uqyjQvKVz"
       },
       "fieldConfig": {
         "defaults": {
@@ -2149,7 +2106,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               }
             ]
           },
@@ -2181,7 +2139,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "${DS_INFLUXDB-INFLUXQL-HAUS}"
+            "uid": "uqyjQvKVz"
           },
           "groupBy": [
             {
@@ -2249,10 +2207,8 @@
     ]
   },
   "timezone": "",
-  "title": "Wallbox Keba",
+  "title": "Wallbox",
   "uid": "jKlxBOF4k",
-  "version": 8,
-  "weekStart": "",
-  "gnetId": 17527,
-  "description": "Shows Kuba wall box metrics."
+  "version": 12,
+  "weekStart": ""
 }
