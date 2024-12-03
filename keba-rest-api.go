@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	modbusclient "github.com/dpapathanasiou/go-modbus"
 	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"net"
@@ -61,7 +63,56 @@ var (
 			{ChargingMAh: 0, VoltageV: 0},
 		},
 	}
+
+	totalRequests = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "total_requests",
+			Help: "Total number of requests received",
+		},
+		[]string{"method", "endpoint"},
+	)
+
+	requestDuration = prometheus.NewHistogramVec(
+		prometheus.HistogramOpts{
+			Name:    "request_duration_seconds",
+			Help:    "Histogram of response time for handler in seconds",
+			Buckets: prometheus.DefBuckets,
+		},
+		[]string{"method", "endpoint"},
+	)
+
+	registerUpdateDuration = prometheus.NewHistogram(
+		prometheus.HistogramOpts{
+			Name:    "register_update_duration_seconds",
+			Help:    "Time taken to update register data in seconds",
+			Buckets: prometheus.DefBuckets,
+		},
+	)
+
+	wallboxAvailability = prometheus.NewGauge(
+		prometheus.GaugeOpts{
+			Name: "wallbox_availability",
+			Help: "Shows if the wallbox is available (1 for available, 0 for unavailable)",
+		},
+	)
 )
+
+func initMetrics() {
+	prometheus.MustRegister(totalRequests)
+	prometheus.MustRegister(requestDuration)
+	prometheus.MustRegister(registerUpdateDuration)
+	prometheus.MustRegister(wallboxAvailability)
+}
+
+func metricsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		timer := prometheus.NewTimer(requestDuration.WithLabelValues(r.Method, r.RequestURI))
+		defer timer.ObserveDuration()
+
+		totalRequests.WithLabelValues(r.Method, r.RequestURI).Inc()
+		next.ServeHTTP(w, r)
+	})
+}
 
 func loggingMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -125,6 +176,7 @@ func initRegisters() {
 func main() {
 
 	initApp()
+	initMetrics()
 
 	go func() {
 		for {
@@ -177,9 +229,14 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/state", getState)
 	router.Use(loggingMiddleware)
+
+	// Add /metrics endpoint
+	http.Handle("/metrics", promhttp.Handler())
 	http.Handle("/", router)
 
 	log.Info().Msg("Get current state on http://<your hostname>:" + env.apiPort + "/state")
+	log.Info().Msg("Metrics available at http://<your hostname>:" + env.apiPort + "/metrics")
+
 	log.Fatal().Err(http.ListenAndServe(":"+env.apiPort, nil))
 
 }
@@ -247,23 +304,28 @@ func getEnv(key, fallback string) string {
 }
 
 func updateRegisterData() {
-
 	log.Debug().Msg("updateRegisterData")
 
+	start := time.Now()
 	conn, err := modbusclient.ConnectTCP(env.wallboxName, env.wallboxPort)
 	if err != nil {
-		log.Fatal().Err(err).Msg("Connection error.")
+		wallboxAvailability.Set(0) // Wallbox is unavailable
+		log.Error().Err(err).Msg("Wallbox connection error.")
+		return
 	}
+	wallboxAvailability.Set(1) // Wallbox is available
 
 	for i, register := range registers {
-		log.Debug().Str("id", string(rune(registers[i].id))).Str("value", string(registers[i].value))
+		log.Debug().Str("id", strconv.Itoa(registers[i].id)).Str("value", strconv.Itoa(int(registers[i].value)))
 		registers[i] = readRegister(conn, register)
-		log.Debug().Str("id", string(rune(registers[i].id))).Str("value", string(registers[i].value))
+		log.Debug().Str("id", strconv.Itoa(registers[i].id)).Str("value", strconv.Itoa(int(registers[i].value)))
 		time.Sleep(1 * time.Second)
 	}
 
 	modbusclient.DisconnectTCP(conn)
 
+	elapsed := time.Since(start).Seconds()
+	registerUpdateDuration.Observe(elapsed)
 }
 
 func readRegister(conn net.Conn, register register) register {
@@ -293,11 +355,13 @@ func readRegister(conn net.Conn, register register) register {
 
 	for i := from; i < to; i++ {
 		offset++
-		if i >= len(readResult) {
+		if offset >= len(readResult) {
 			log.Error().Msgf("No data from wallbox %s. Power off/on required.", env.wallboxName)
+			wallboxAvailability.Set(0) // Wallbox is unavailable
 			break
 		}
 
+		wallboxAvailability.Set(1) // Wallbox is available
 		switch offset {
 		case 1:
 			value = value + int32(readResult[i])*256*256*256

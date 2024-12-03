@@ -14,7 +14,7 @@ Try it out.
 
 ### How to get state via rest api ?
 
-Open in a browser the URL with your servername and the metric port.
+Open in a browser the URL with your servername and port.
 
 > http://localhost:8080/state
 
@@ -58,6 +58,28 @@ This request returns an output like this
 
 > wallboxPort: number, default is 502 
 
+
+### How to get metrics ?
+
+Open in a browser the URL with your servername and port.
+
+> http://localhost:8080/metrics
+
+This request returns an prometheus output like this
+```
+# TYPE promhttp_metric_handler_requests_total counter
+promhttp_metric_handler_requests_total{code="200"} 123
+promhttp_metric_handler_requests_total{code="500"} 0
+promhttp_metric_handler_requests_total{code="503"} 0
+# HELP register_update_duration_seconds Time taken to update register data in seconds
+# TYPE register_update_duration_seconds histogram
+register_update_duration_seconds_bucket{le="0.005"} 0
+register_update_duration_seconds_sum 18.644970875
+register_update_duration_seconds_count 1
+# HELP wallbox_availability Shows if the wallbox is available (1 for available, 0 for unavailable)
+# TYPE wallbox_availability gauge
+wallbox_availability 1
+```
 
 ## Grafana Integration
 You find a default Grafana board in the subfolder grafana.
