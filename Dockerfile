@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.20.3
 
 # the nonprivileged user to start entrypoint with (will be replaced with a random userid at runtime)
 ENV RUNTIMEUSER=1001
