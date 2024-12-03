@@ -293,6 +293,11 @@ func readRegister(conn net.Conn, register register) register {
 
 	for i := from; i < to; i++ {
 		offset++
+		if i >= len(readResult) {
+			log.Error().Msgf("No data from wallbox %s. Power off/on required.", env.wallboxName)
+			break
+		}
+
 		switch offset {
 		case 1:
 			value = value + int32(readResult[i])*256*256*256
