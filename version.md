@@ -1,5 +1,8 @@
 # Version history
 
+### 1.3.0
+Metrics added.
+
 ### 1.2.0
 Documentation fixed.
 
