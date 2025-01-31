@@ -124,7 +124,6 @@ func loggingMiddleware(next http.Handler) http.Handler {
 }
 
 func getState(w http.ResponseWriter, r *http.Request) {
-
 	log.Debug().Msg("getState")
 
 	for !registerFilled {
@@ -133,15 +132,14 @@ func getState(w http.ResponseWriter, r *http.Request) {
 
 	currentState.Timestamp = time.Now().Format(time.RFC3339)
 
-	w.WriteHeader(http.StatusCreated)
+	// Change the status to 200 OK
+	w.WriteHeader(http.StatusOK)
 
 	enc := json.NewEncoder(w)
 	enc.SetIndent("", "    ")
 	if err := enc.Encode(currentState); err != nil {
 		panic(err)
 	}
-
-	w.WriteHeader(http.StatusOK)
 }
 
 func initRegisters() {
